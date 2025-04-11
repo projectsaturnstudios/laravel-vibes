@@ -22,6 +22,7 @@ class SessionInitialized extends AgentMethod
      */
     public function handle(VibeSesh $sesh, string|int|null $request_id, array $params) : void
     {
+
         Log::info('SessionInitialized - '.$this->method_name());
         Log::info('SessionInitialized - ', [$params]);
 
@@ -37,10 +38,10 @@ class SessionInitialized extends AgentMethod
         }
         elseif(array_key_exists('capabilities', $params) && (!empty($params['capabilities'])))
         {
-            if(array_key_exists('tools', $params['capabilities']) && $params['capabilities']['tools']) $response = $response->revealTools();
-            if(array_key_exists('prompts', $params['capabilities']) && $params['capabilities']['prompts']) $response = $response->revealPrompts();
-            if(array_key_exists('resources', $params['capabilities']) && $params['capabilities']['resources']) $response = $response->revealResources();
-
+            
+            if(array_key_exists('tools', $params['capabilities']) /*&& $params['capabilities']['tools']*/) $response = $response->revealTools();
+            if(array_key_exists('prompts', $params['capabilities']) /*&& $params['capabilities']['prompts']*/) $response = $response->revealPrompts();
+            if(array_key_exists('resources', $params['capabilities']) /*&& $params['capabilities']['resources']*/) $response = $response->revealResources();
         }
 
         send_good_vibes($sesh,$response);
