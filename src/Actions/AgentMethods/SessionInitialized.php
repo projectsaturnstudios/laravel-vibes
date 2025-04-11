@@ -36,9 +36,13 @@ class SessionInitialized extends AgentMethod
         {
             $response = $response->revealEverything();
         }
+        elseif(array_key_exists('capabilities', $params) && (empty($params['capabilities'])))
+        {
+            $response = $response->revealEverything();
+        }
         elseif(array_key_exists('capabilities', $params) && (!empty($params['capabilities'])))
         {
-            
+
             if(array_key_exists('tools', $params['capabilities']) /*&& $params['capabilities']['tools']*/) $response = $response->revealTools();
             if(array_key_exists('prompts', $params['capabilities']) /*&& $params['capabilities']['prompts']*/) $response = $response->revealPrompts();
             if(array_key_exists('resources', $params['capabilities']) /*&& $params['capabilities']['resources']*/) $response = $response->revealResources();

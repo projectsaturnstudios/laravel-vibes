@@ -1,6 +1,6 @@
 <?php
 
-namespace ProjectSaturnStudios\Vibes\Actions\AgentMethods\Resources;
+namespace ProjectSaturnStudios\Vibes\Actions\AgentMethods\Notifications;
 
 use Illuminate\Support\Facades\Log;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -10,26 +10,19 @@ use ProjectSaturnStudios\Vibes\Data\SSESessions\VibeSesh;
 use ProjectSaturnStudios\Vibes\Services\ResponseBuilders\AgentSuccess;
 use Symfony\Component\VarDumper\VarDumper;
 
-#[MCPMethod('resources/list')]
-class ListResources extends AgentMethod
+#[MCPMethod('notifications/cancelled')]
+class NotyCancelRequest extends AgentMethod
 {
     use AsAction;
 
-    public function handle(VibeSesh $sesh, string|int|null $request_id, ?array $params) : void
+    public function handle(VibeSesh $sesh, string|int|null $request_id, ?array $params = null) : void
     {
-        Log::info('ListResources - '.$this->method_name());
+        Log::info('CancelRequest! - '.$this->method_name());
         Log::info($params);
-
-        $tools = mcp_tools();
-        $defs = [];
-        foreach ($tools as $tool)
-        {
-            $defs[] = $tool::getMetadata();
-        }
 
         $response = (new AgentSuccess)
             ->addId($request_id ?? 0)
-            ->queueResult(['resources' => []]);
+            ->sendBackNothing();
 
         send_good_vibes($sesh,$response);
     }

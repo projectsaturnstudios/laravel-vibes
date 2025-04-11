@@ -24,10 +24,9 @@ class ListTools extends AgentMethod
     public function handle(VibeSesh $sesh, string|int|null $request_id, ?array $params) : void
     {
         Log::info('ListTools - '.$this->method_name());
-        //Log::info($params);
+        Log::info($params);
 
         $tools = mcp_tools();
-        Log::info("come on dude srsly", $tools->toArray());
         $defs = [];
         foreach ($tools as $tool)
         {
