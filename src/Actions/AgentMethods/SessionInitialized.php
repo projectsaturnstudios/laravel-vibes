@@ -23,7 +23,7 @@ class SessionInitialized extends AgentMethod
     public function handle(VibeSesh $sesh, string|int|null $request_id, array $params) : void
     {
         Log::info('SessionInitialized - '.$this->method_name());
-        //Log::info($params);
+        Log::info('SessionInitialized - ', [$params]);
 
         $response = (new AgentInitializeResponse)
             ->addId($request_id)
