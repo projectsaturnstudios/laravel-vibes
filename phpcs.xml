@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel-Vibes PHP Doc Standard">
+    <description>PHP_CodeSniffer configuration for Laravel-Vibes package PHPDoc validation</description>
+
+    <!-- Include paths to scan -->
+    <file>src</file>
+
+    <!-- Exclude paths from scan -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+
+    <!-- Include PSR-12 coding standard -->
+    <rule ref="PSR12"/>
+
+    <!-- Specifically include PHPDoc sniffs -->
+    <rule ref="Generic.Commenting.DocComment">
+        <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+        <exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
+    </rule>
+
+    <!-- Require PHPDoc comment blocks for classes, interfaces, traits, methods, and functions -->
+    <rule ref="Squiz.Commenting.ClassComment"/>
+    <rule ref="Squiz.Commenting.FunctionComment"/>
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
+    <rule ref="Squiz.Commenting.VariableComment"/>
+
+    <!-- General rules for DocBlocks -->
+    <rule ref="Squiz.Commenting.DocCommentAlignment"/>
+    <rule ref="Squiz.Commenting.EmptyCatchComment"/>
+
+    <!-- Enforce PHPDoc params match method params -->
+    <rule ref="Squiz.Commenting.FunctionComment.ParamNameNoMatch"/>
+    <rule ref="Squiz.Commenting.FunctionComment.MissingParamName"/>
+    <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+    <rule ref="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+    <rule ref="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+    
+    <!-- Validation for return statements -->
+    <rule ref="Squiz.Commenting.FunctionComment.MissingReturn"/>
+    <rule ref="Squiz.Commenting.FunctionComment.InvalidReturn"/>
+</ruleset> 
