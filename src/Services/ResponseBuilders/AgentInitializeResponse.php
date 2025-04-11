@@ -88,6 +88,11 @@ class AgentInitializeResponse extends SSEResponseBuilder
         if($this->reveal_resources) $results['result']['capabilities']['resources'] = ['listChanged' => true];
         if($this->reveal_prompts) $results['result']['capabilities']['prompts'] = ['listChanged' => false];
 
+        if($this->show_capabilities && (empty($results['result']['capabilities'])))
+        {
+            $results['result']['capabilities'] = new \stdClass();
+        }
+
         return $results;
     }
 }
