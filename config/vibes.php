@@ -112,18 +112,19 @@ return [
         'tools/list' => \ProjectSaturnStudios\Vibes\Actions\AgentMethods\Tools\ListTools::class,
         'tools/call' => \ProjectSaturnStudios\Vibes\Actions\AgentMethods\Tools\InvokeTool::class,
 
-        //'resources/list' => '',
+        'resources/list' => \ProjectSaturnStudios\Vibes\Actions\AgentMethods\Resources\ListResources::class,
         //'resources/read' => '',
         //'resources/templates/list' => '',
         //'resources/subscribe' => '',
         //'resources/unsubscribe' => '',
 
-        //'prompts/list' => '', // Not implemented yet
+        'prompts/list' => \ProjectSaturnStudios\Vibes\Actions\AgentMethods\Prompts\ListPrompts::class,
         //'prompts/call' => '', // Not implemented yet
 
         // Notification-related methods
-        //'notifications/initialized' => '',
-        //'notifications/cancellation' => '',
+        'notifications/initialized' => \ProjectSaturnStudios\Vibes\Actions\AgentMethods\Notifications\InitializationConfirmed::class,
+        'notifications/cancellation' => \ProjectSaturnStudios\Vibes\Actions\AgentMethods\Notifications\CancelRequest::class,
+        'notifications/cancelled' => \ProjectSaturnStudios\Vibes\Actions\AgentMethods\Notifications\NotyCancelRequest::class,
     ],
 
 
@@ -138,8 +139,8 @@ return [
     |
     */
     'tool_repository' => \ProjectSaturnStudios\Vibes\Primitives\Tools\Repositories\VibeToolRepo::class,
-    'register_sample_tools' => false,
-    'register_dev_tools' => false,
+    'register_sample_tools' => true,
+    'register_dev_tools' => true,
     'tools' => [
         //'echo' => EchoTool::class,
     ],
