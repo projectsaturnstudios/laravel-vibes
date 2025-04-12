@@ -2,15 +2,13 @@
 
 namespace ProjectSaturnStudios\Vibes\Providers;
 
-use ProjectSaturnStudios\Vibes\Actions\AgentMethods\AgentMethod;
-use ProjectSaturnStudios\Vibes\Attributes\MCPMethod;
 use Spatie\LaravelPackageTools\Package;
 use ProjectSaturnStudios\Vibes\TheAgency;
-use Spatie\EventSourcing\Support\Composer;
+use ProjectSaturnStudios\Vibes\Support\Composer;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use ProjectSaturnStudios\Vibes\Services\MCPEventSubscriber;
+use ProjectSaturnStudios\Vibes\Actions\AgentMethods\AgentMethod;
 use ProjectSaturnStudios\Vibes\Services\PrimitiveHandlerDiscoveryService;
-use Spatie\StructureDiscoverer\Discover;
 
 /**
  * Service provider for bootstrapping the Laravel Vibes package.
