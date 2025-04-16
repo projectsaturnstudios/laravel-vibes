@@ -1,0 +1,47 @@
+<?php
+
+namespace {{ namespace }};
+
+use ProjectSaturnStudios\Vibes\Data\AgentVibe;
+use ProjectSaturnStudios\Vibes\Attributes\MCPTool;
+use ProjectSaturnStudios\Vibes\Enums\MCPErrorCode;
+use ProjectSaturnStudios\Vibes\Data\SSESessions\VibeSesh;
+use ProjectSaturnStudios\Vibes\Primitives\Tools\Data\VibeTool;
+use ProjectSaturnStudios\Vibes\Services\ResponseBuilders\AgentSuccess;
+
+#[MCPTool('{{ tool_name }}', description: '{{ description }}')]
+class {{ class }} extends VibeTool
+{
+    /**
+     * @param VibeSesh $sesh The Vibe session instance for communication.
+     * @param string $request_id Unique identifier for the request.
+     * @param array|null $params Parameters containing the series for which to find the next dirty file.
+     * @return void
+     */
+    public function execute(VibeSesh $sesh, string $request_id, ?array $params) : void
+    {
+        $vibe = new AgentVibe("2.0", $this->getName(), $sesh->session_id, $request_id, $params);
+        if($params)
+        {
+            $response = (new AgentSuccess)
+                ->addId($request_id ?? 0)
+                ->queueResult(['content' => [['type' => 'text', 'text' => "Anything you want!"]]]);
+
+            send_good_vibes($sesh,$response);
+        }
+        else { ruin_the_vibe($sesh,$vibe, MCPErrorCode::ERROR_INVALID_PARAMS,"{$this->getName()} - Invalid parameters"); }
+    }
+
+    /**
+     * Defines the input schema for this tool
+     *
+     * @return array The schema definition for input parameters.
+     */
+    public static function input_schema() : array
+    {
+        return [
+            'type' => 'object',
+            'properties' => new \stdClass()
+        ];
+    }
+}

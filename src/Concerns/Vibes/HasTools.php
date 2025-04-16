@@ -3,7 +3,6 @@
 namespace ProjectSaturnStudios\Vibes\Concerns\Vibes;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use ProjectSaturnStudios\Vibes\Primitives\Tools\Data\VibeTool;
 use ProjectSaturnStudios\Vibes\Exceptions\InvalidPrimitiveHandler;
 use ProjectSaturnStudios\Vibes\Primitives\PrimitiveHandlerCollection;

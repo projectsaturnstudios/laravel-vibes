@@ -3,7 +3,6 @@
 namespace ProjectSaturnStudios\Vibes\Primitives;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use ProjectSaturnStudios\Vibes\Contracts\PrimitiveHandler;
 
 /**

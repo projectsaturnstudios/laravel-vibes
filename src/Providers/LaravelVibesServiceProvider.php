@@ -8,6 +8,7 @@ use ProjectSaturnStudios\Vibes\Support\Composer;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use ProjectSaturnStudios\Vibes\Services\MCPEventSubscriber;
 use ProjectSaturnStudios\Vibes\Actions\AgentMethods\AgentMethod;
+use ProjectSaturnStudios\Vibes\Console\Commands\Make\MakeToolCommand;
 use ProjectSaturnStudios\Vibes\Services\PrimitiveHandlerDiscoveryService;
 
 /**
@@ -26,7 +27,7 @@ class LaravelVibesServiceProvider extends PackageServiceProvider
      * @var array Artisan commands provided by the package.
      */
     protected array $commands = [
-        //MakeToolCommand::class,
+        MakeToolCommand::class,
     ];
 
     /**
@@ -64,14 +65,11 @@ class LaravelVibesServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-vibes')
-            ->hasCommands($this->commands)
-            ->hasConsoleCommands($this->cli_commands)
+            //->hasConsoleCommands($this->cli_commands)
             ->hasConfigFile('vibes')
             ->hasRoute('agent-endpoints')
+            ->hasCommands($this->commands)
         ;
-
-        //$methods = Discover::in(base_path())->withAttribute(MCPMethod::class)->get();
-        //dd($methods, base_path());
     }
 
     /**
@@ -107,6 +105,8 @@ class LaravelVibesServiceProvider extends PackageServiceProvider
 
         $this->discoverPrimitiveHandlers();
         $this->registerMCPMethods();
+
+        $this->publishStubs();
     }
 
     /**
@@ -240,5 +240,12 @@ class LaravelVibesServiceProvider extends PackageServiceProvider
             $action = app($class);
             $this->app->bind($action->method_name(), fn() => $action);
         }
+    }
+
+    protected function publishStubs() : void
+    {
+        $this->publishes([
+            __DIR__ . '/../../stubs/tool.stub' => base_path('stubs/tool.stub'),
+        ], 'stubs');
     }
 }
