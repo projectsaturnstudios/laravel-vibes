@@ -32,7 +32,8 @@
         "files": [
             "src/Helpers/primitives.php",
             "src/Helpers/sse.php",
-            "src/Helpers/mcp_events.php"
+            "src/Helpers/mcp_events.php",
+            "src/Helpers/auth.php"
         ]
     },
     "autoload-dev": {

@@ -2,6 +2,8 @@
 
 namespace ProjectSaturnStudios\Vibes\Providers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
+use ProjectSaturnStudios\Vibes\Models\UserAgentAccessTokenModel;
 use Spatie\LaravelPackageTools\Package;
 use ProjectSaturnStudios\Vibes\TheAgency;
 use ProjectSaturnStudios\Vibes\Support\Composer;
@@ -52,6 +54,10 @@ class LaravelVibesServiceProvider extends PackageServiceProvider
         'cors.vibes' => '/../../config/cors.php',
     ];
 
+    protected array $migrations = [
+        'create_user_agent_tokens_table',
+    ];
+
     /**
      * Configure the Laravel Vibes package.
      *
@@ -68,6 +74,7 @@ class LaravelVibesServiceProvider extends PackageServiceProvider
             //->hasConsoleCommands($this->cli_commands)
             ->hasConfigFile('vibes')
             ->hasRoute('agent-endpoints')
+            ->hasMigrations($this->migrations)
             ->hasCommands($this->commands)
         ;
     }
@@ -107,6 +114,10 @@ class LaravelVibesServiceProvider extends PackageServiceProvider
         $this->registerMCPMethods();
 
         $this->publishStubs();
+
+        Relation::enforceMorphMap([
+            'admin-token' => UserAgentAccessTokenModel::class,
+        ]);
     }
 
     /**
