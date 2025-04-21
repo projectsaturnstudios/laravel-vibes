@@ -3,8 +3,8 @@
 namespace ProjectSaturnStudios\Vibes\Actions\SSESessions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
-use ProjectSaturnStudios\Vibes\Enums\MCPResponseEvent;
 use ProjectSaturnStudios\Vibes\Data\SSESessions\VibeSesh;
+use ProjectSaturnStudios\Vibes\Enums\MCPResponseEvent;
 
 /**
  * Creates a new agent session for MCP communication.
@@ -41,20 +41,12 @@ class GetNewAgentSession
     {
         $sesh = vibe_sesh();
         vibe_activity('session-started', ['message' => "'Session {$sesh->session_id} Started With Agent'", 'sesh' => $sesh, 'request' => request()]);
-        $sesh = $sesh
+        return $sesh
             ->addSessionEvent(
                 pending_event: sesh_event(
                     session_id: $sesh->session_id,
                     occasion: MCPResponseEvent::ENDPOINT,
                     payload:config('vibes.routes.messages.uri')."?session_id={$sesh->session_id}")
-            );
-
-        if(config('vibes.service_info.requires_authentication'))
-        {
-            $user = auth(config('vibes.service_info.auth_guard'))->user();
-            $sesh = $sesh->setUser($user);
-        }
-
-        return $sesh->save();
+            )->save();
     }
 }

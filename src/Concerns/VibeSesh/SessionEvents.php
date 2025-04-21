@@ -2,9 +2,6 @@
 
 namespace ProjectSaturnStudios\Vibes\Concerns\VibeSesh;
 
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use ProjectSaturnStudios\Vibes\Data\SSESessions\SessionEvent;
 
 trait SessionEvents
@@ -15,8 +12,6 @@ trait SessionEvents
      * @var SessionEvent|null
      */
     public ?SessionEvent $pending_event = null;
-    public ?string $user = null;
-    public ?string $morph = null;
 
     /**
      * Add a pending event to the session.
@@ -59,28 +54,5 @@ trait SessionEvents
     {
         $this->pending_event = null;
         return $this;
-    }
-
-    public function setUser(Model|Authenticatable $user) : static
-    {
-        $this->user = $user->getKey();
-        $this->morph = $user->getMorphClass();
-        return $this;
-    }
-
-    public function getUser() : Model|Authenticatable|null
-    {
-        $results = null;
-
-        if($this->user)
-        {
-            $class = (new (Relation::getMorphedModel($this->morph))());
-            if($user = $class->where($class->getKeyName(), $this->user)->first())
-            {
-                $results = $user;
-            }
-        }
-
-        return $results;
     }
 }
