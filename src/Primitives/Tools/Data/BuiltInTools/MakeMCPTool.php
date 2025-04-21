@@ -3,13 +3,12 @@
 namespace ProjectSaturnStudios\Vibes\Primitives\Tools\Data\BuiltInTools;
 
 use Illuminate\Support\Facades\Artisan;
-use ProjectSaturnStudios\Vibes\Attributes\MCPTool;
 use ProjectSaturnStudios\Vibes\Data\AgentVibe;
-use ProjectSaturnStudios\Vibes\Data\SSESessions\VibeSesh;
+use ProjectSaturnStudios\Vibes\Attributes\MCPTool;
 use ProjectSaturnStudios\Vibes\Enums\MCPErrorCode;
-use ProjectSaturnStudios\Vibes\Primitives\Tools\Contracts\BuiltInTool;
-use ProjectSaturnStudios\Vibes\Primitives\Tools\Contracts\SampleTool;
+use ProjectSaturnStudios\Vibes\Data\SSESessions\VibeSesh;
 use ProjectSaturnStudios\Vibes\Primitives\Tools\Data\VibeTool;
+use ProjectSaturnStudios\Vibes\Primitives\Tools\Contracts\BuiltInTool;
 use ProjectSaturnStudios\Vibes\Services\ResponseBuilders\AgentSuccess;
 
 #[MCPTool('make_mcp_tool', "Generate an MCP Tool")]
@@ -42,7 +41,7 @@ class MakeMCPTool extends VibeTool implements BuiltInTool
 
                     send_good_vibes($sesh,$response);
                 }
-                else { ruin_the_vibe($sesh,$vibe, MCPErrorCode::ERROR_INTERNAL, "{$this->getName()} - Arguments Missing"); }
+                else { ruin_the_vibe($sesh,$vibe, MCPErrorCode::ERROR_INTERNAL, "{$this->getName()} - Namespace Path Missing"); }
             }
             else { ruin_the_vibe($sesh,$vibe, MCPErrorCode::ERROR_INTERNAL, "{$this->getName()} - Arguments Missing"); }
         }

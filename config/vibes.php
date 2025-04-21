@@ -1,5 +1,9 @@
 <?php
 
+use ProjectSaturnStudios\Vibes\Http\Middleware\ScaffoldSSEConnection;
+use ProjectSaturnStudios\Vibes\Http\Middleware\AuthenticateAgentsUser;
+use ProjectSaturnStudios\Vibes\Http\Middleware\ValidateAgentAccessToken;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -15,6 +19,8 @@ return [
     'service_info' => [
         'server_name' => env('VIBE_SVC_NAME', 'laravel-vibes-server'),
         'server_version' => env('VIBE_SVC_VERSION', '1.0.0'),
+        'requires_authentication' => true, // Set to true if your server requires authentication
+        'auth_guard' => 'admin', //'web'
 
         'heartbeat_interval' => 20, // seconds
         'listener_execution_time' => 0, // seconds
@@ -33,6 +39,9 @@ return [
             'Connection' => 'keep-alive',
             'X-Accel-Buffering' => 'no',
         ]
+    ],
+    'database' => [
+        'connection' => env('AI_DB_CONNECTION', 'mysql'),
     ],
     /*
     |--------------------------------------------------------------------------
@@ -65,6 +74,13 @@ return [
     'middleware' => [
         'api',
         \ProjectSaturnStudios\Vibes\Http\Middleware\ValidAgentCorsHeaders::class,
+    ],
+    'entry_middleware' => [
+        ValidateAgentAccessToken::class,
+        ScaffoldSSEConnection::class
+    ],
+    'messages_middleware' => [
+        AuthenticateAgentsUser::class
     ],
     /*
     |--------------------------------------------------------------------------

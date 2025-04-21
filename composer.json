@@ -2,7 +2,7 @@
     "name": "projectsaturnstudios/laravel-vibes",
     "description": "A Laravel package for implementing the Machine Control Protocol (MCP) server",
     "type": "library",
-    "version": "0.4.7",
+    "version": "0.5.0",
     "license": "MIT",
     "authors": [
         {
@@ -32,7 +32,8 @@
         "files": [
             "src/Helpers/primitives.php",
             "src/Helpers/sse.php",
-            "src/Helpers/mcp_events.php"
+            "src/Helpers/mcp_events.php",
+            "src/Helpers/auth.php"
         ]
     },
     "autoload-dev": {
